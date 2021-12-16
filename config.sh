@@ -1,6 +1,7 @@
 IFS="$"
 DOMAIN=$1
 USER=$2
+ADDON=$3
 #VHOSTFILE="/usr/local/lsws/conf/vhosts/$DOMAIN.conf"
 VHOSTFILE="$DOMAIN.conf"
 echo "include $VHOSTFILE" >> cpanel-vhosts.conf;
@@ -17,7 +18,7 @@ echo "  setUIDMode              2" >> $VHOSTFILE;
 echo "  # listeners  listener1, listener2, listener3" >> $VHOSTFILE;
 echo "  listeners Default-80" >> $VHOSTFILE;
 echo "  #VirtualHost config settings" >> $VHOSTFILE;
-echo "  docRoot                   /home/$USER/public_html/$DOMAIN" >> $VHOSTFILE
+echo "  docRoot                   /home/$USER/public_html/$ADDON" >> $VHOSTFILE
 echo "  vhDomain                  $DOMAIN" >> $VHOSTFILE
 echo "  vhAliases                 www.$DOMAIN" >> $VHOSTFILE
 echo "  adminmails               webmaster@$DOMAIN" >> $VHOSTFILE
@@ -80,7 +81,7 @@ echo "  setUIDMode              2" >> $VHOSTFILE
 echo "  # listeners  listener1, listener2, listener3" >> $VHOSTFILE
 echo "  listeners Default-SSL" >> $VHOSTFILE
 echo "  #VirtualHost config settings" >> $VHOSTFILE
-echo "  docRoot                   /home/$USER/public_html/$DOMAIN" >> $VHOSTFILE
+echo "  docRoot                   /home/$USER/public_html/$ADDON" >> $VHOSTFILE
 echo "  vhDomain                  $DOMAIN" >> $VHOSTFILE
 echo "  vhAliases                 www.$DOMAIN" >> $VHOSTFILE
 echo "  adminEmails               webmaster@$DOMAIN" >> $VHOSTFILE
