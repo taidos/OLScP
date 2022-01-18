@@ -31,4 +31,19 @@ echo "Hooking OpenLiteSpeed cPanel Integrator with cPanel/WHM";
 /usr/local/cpanel/bin/manage_hooks add script /usr/local/olscp/scripts/addsub.sh --category=Cpanel --event=Api2::SubDomain::addsubdomain --escalateprivs=1 --stage=post --manual
 /usr/local/cpanel/bin/manage_hooks add script /usr/local/olscp/scripts/delsub.sh --category=Cpanel --event=Api2::SubDomain::delsubdomain --escalateprivs=1 --stage=post --manual
 # erase the rest
+echo "Link Easyapache PHP into OLS";
+/usr/local/cpanel/bin/manage_hooks add script /usr/local/olscp/scripts/php.sh --category=Cpanel --event=UAPI::LangPHP::php_set_vhost_versions --escalateprivs=1 --stage=pre --manual;
+yum -y install ea-apache24-mod_lsapi.x86_64;
+mv /usr/local/lsws/lsphp74/bin/lsphp /usr/local/lsws/lsphp74/bin/lsphp.bak;
+cp -R /opt/cpanel/ea-php74/root/usr/bin/lsphp /usr/local/lsws/lsphp74/bin/lsphp;
+mv /usr/local/lsws/lsphp74/bin/php /usr/local/lsws/lsphp74/bin/php.bak;
+cp -R /opt/cpanel/ea-php74/root/usr/bin/php /usr/local/lsws/php74/bin/lsphp;
+#a version
+mkdir -p /usr/local/lsws/lsphp80/bin/;
+cd /usr/local/lsws/lsphp80/bin/;
+ln -s /opt/cpanel/ea-php80/root/bin/php php
+ln -s /opt/cpanel/ea-php80/root/bin/lsphp lsphp
+
+echo "This php is version 7.4, please enable lsapi on multiphp manager on WHM";
 rm -rf /usr/local/olscp.tar
+
